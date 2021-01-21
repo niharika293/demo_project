@@ -14,3 +14,7 @@ app.listen(port,function(err){
     }
     console.log(`Server is up and running on Port: ${port}`);
 });
+
+//tell the app to use EJS as view-engine.
+app.set('view engine','ejs');
+app.set('views','./views');
