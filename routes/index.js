@@ -4,7 +4,10 @@ const express = require('express');
 const router = express.Router(); //this will be able to handle all the URLs now. 
 const homeController = require('../controllers/home_controller');
 console.log("Router Started!!");
-module.exports = router; //available outside this file now.
 
 //To access the controller from the routes.
 router.get('/',homeController.home);
+router.use('/user',require('./users'));
+router.use('/posts',require('./posts'));
+
+module.exports = router; //available outside this file now.
