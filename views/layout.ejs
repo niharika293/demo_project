@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title><%=title%></title>
+        <link rel="stylesheet" href="/css/layout.css">
+        <!-- this path will be read through the assets folder, 
+        since we've already mentioned in the index.js app file 
+        to look for the static files in assets folder. -->
+        <%-style%>
+        <!-- this way, the stylesheet will be read through the link tag provided in the
+            target view or html file :) -->
+        <!-- Good practice, to place the user defined individual styles after the layout's styles,
+            so that they can override the existing styles from layout. -->
+    </head>
+    <body>
+        <%-include('_header');%>
+        <%-body%> 
+        <%-include('_footer');%>
+        <%-script%>
+    </body>
+</html>
