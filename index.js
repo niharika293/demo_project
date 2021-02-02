@@ -4,6 +4,13 @@ const app = express();//Creates an Express application. The express() function i
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts'); //acquire layouts
 const db = require('./config/mongoose'); //acquire the defined mongoose connection
+const cookieParser = require('cookie-parser');
+
+// reading through post requests
+app.use(express.urlencoded());
+
+// tell the app to use cookie parser
+app.use(cookieParser());
 
 // tell the app to use static files in assets folder.
 app.use(express.static('./assets'));
