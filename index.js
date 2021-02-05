@@ -1,10 +1,14 @@
 //Acquiring Express
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();//Creates an Express application. The express() function is a top-level function exported by the express module. 
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts'); //acquire layouts
 const db = require('./config/mongoose'); //acquire the defined mongoose connection
-const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongo')(session);
 
 // reading through post requests
 app.use(express.urlencoded());
@@ -26,6 +30,29 @@ app.set('layout extractScripts',true); //for js files
 app.set('view engine','ejs');
 app.set('views','./views');
 
+// tell the app to use passport local for authentication
+// Mongo store is used to store the session cookie in the DB.
+app.use(session({
+    name:'codeial',
+    secret:'blah something',
+    saveUninitialized:false,
+    resave:false,
+    cookie:{
+        maxAge:(1000*60*100)
+    },
+    store:new MongoStore({
+        mongooseConnection:db,
+        autoRemove:'disabled'
+    },function(err){
+        console.log(err || 'connect-mongodb setup ok!');
+    }
+    )
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Set the current user usage
+app.use(passport.setAuthenticatedUser);
 //use express router.
 app.use('/',require('./routes')); //by default it takes index.js from routes. 
 

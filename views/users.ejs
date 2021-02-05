@@ -5,21 +5,29 @@
         </title>
     </head>
     <body> (commented for the functioning of layouts.) -->
-        <!-- <header>
+<!-- <header>
             Page Header
         </header> -->
-        <!-- Using Partials -->
-        <!-- <%-include('_header');%> -->
-        <link rel="stylesheet" href="/css/user_profile.css">
-        <!-- 1.including css file for this page separately.
-             not an optimised approach, since the link is just floating, not properly placed in the head tag.
-             still laying my hands on it to just explore!! :P
-             2. above approach is insufficient when the app isn't extracting styles in the app index file. 
-             -->
-        <h1>Codeial-Users!</h1>
-        <!-- <%-include('_footer');%> -->
-        <!-- <footer>
+<!-- Using Partials -->
+<!-- removed the commented "include header part" as it was making the header to be included twice -->
+
+<!-- 1.including css file for this page separately.
+ not an optimised approach, since the link is just floating, not properly placed in the head tag.
+ still laying my hands on it to just explore!! :P
+ 2. above approach is insufficient when the app isn't extracting styles in the app index file. -->
+
+<link rel="stylesheet" href="/css/user_profile.css">
+<h1>Codeial-Users!</h1>
+<!-- Access data from server. -->
+<p>
+    <%=user.name%>
+</p>
+<p>
+    <%=user.email%>
+</p>
+<!-- <%-include('_footer');%> -->
+<!-- <footer>
             Page Footer
         </footer> -->
-    <!-- </body>
+<!-- </body>
 </html> -->
