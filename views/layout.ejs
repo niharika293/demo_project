@@ -5,6 +5,8 @@
         <!-- this path will be read through the assets folder, 
         since we've already mentioned in the index.js app file 
         to look for the static files in assets folder. -->
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
         <%-style%>
         <!-- this way, the stylesheet will be read through the link tag provided in the
             target view or html file :) -->
@@ -13,7 +15,9 @@
     </head>
     <body>
         <%-include('_header');%>
-        <%-body%> 
+        <main id="layout-main">
+            <%-body%> 
+        </main>
         <%-include('_footer');%>
         <%-script%>
     </body>

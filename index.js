@@ -9,6 +9,18 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const MongoStore = require('connect-mongo')(session);
+const sassMiddleware = require('node-sass-middleware');
+
+// Put Sass Middleware settings before the server starts, so that all the sass files get pre-compiled
+// before they are accessed.
+
+app.use(sassMiddleware({
+    src:'./assets/scss',
+    dest:'./assets/css',
+    debug:true, //enables to see the errors if the files fail to compile from scss to css
+    outputStyle:'extended', //output : multiple lines
+    prefix:'/css' //t will tell the sass middleware that any request file will always be prefixed with <prefix> and this prefix should be ignored.
+}));
 
 // reading through post requests
 app.use(express.urlencoded());

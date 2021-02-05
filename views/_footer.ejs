@@ -1,3 +1,28 @@
 <footer>
-    Page Footer
+    <div id="copyright">
+        <p>&copy;&nbsp;Niharika Gurnani - All Rights Reserved, 2021</p>
+    </div>
+    <div id="jump_links">
+        <ul>
+            <% if(locals.user){ %> 
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/profile">
+                        Profile
+                    </a>
+                </li>
+                <%} else {%>
+                    <li>
+                        <a href="/user/login">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="/user/signup">Sign Up</a>
+                    </li>
+                <% } %>
+        </ul>
+    </div>
 </footer>

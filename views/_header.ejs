@@ -1,24 +1,29 @@
 <header>
-    Page Header
-<!-- Display authenticated links as and when required -->
-<ul>
-    <!-- if the user is authenticated, show his profile and sign-out -->
-    <% if(locals.user){ %>  
-        <li>
-            <a href="/user/profile">
-                <%=user.name%>
-            </a>
-        </li>
-        <li>
-            <a href="/user/sign-out">Sign out</a>
-        </li>
-    <%} else {%>
-        <li>
-            <a href="/user/login">Sign In</a>
-        </li>
-        <li>
-            <a href="/user/signup">Sign Up</a>
-        </li>
-    <% } %>
-</ul>
+    <div id="header_logo">
+        <p>Codeial - My Social Media Website</p>
+    </div>
+    <!-- Display authenticated links as and when required -->
+    <div id="auth_links">
+        <ul>
+            <!-- if the user is authenticated, show his profile and sign-out -->
+            <% if(locals.user){ %>  
+                <li>
+                    <a href="/user/profile">
+                        <%=user.name%>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/sign-out">Sign out</a>
+                </li>
+            <%} else {%>
+                <li>
+                    <a href="/user/login">Sign In</a>
+                </li>
+                <li>
+                    <a href="/user/signup">Sign Up</a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+
 </header>

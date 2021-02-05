@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    background: deepskyblue;
+    font-family: fantasy;
+    font-size: larger;
+    text-shadow: 2px 2px 5px #f0f4c3;
+    #header_logo{
+        
+    }
+    #auth_links{
+        ul{
+            display: flex;
+            list-style-type: none;
+            flex-grow: 0.2;
+            justify-content: space-evenly;
+        }
+        display: flex;
+        flex-direction: row !important;
+        flex-grow: 5.2;
+        justify-content: space-evenly;
+    }
+}
