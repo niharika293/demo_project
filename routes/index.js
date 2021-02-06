@@ -9,5 +9,6 @@ console.log("Router Started!!");
 router.get('/',homeController.home);
 router.use('/user',require('./users'));
 router.use('/posts',require('./posts'));
+router.use('/comments',require('./comments'));
 
 module.exports = router; //available outside this file now.

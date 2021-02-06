@@ -7,7 +7,13 @@ const postSchema = new mongoose.Schema({
     user:{ //to link with user schema
         type:mongoose.Schema.Types.ObjectId,
         ref:'User' //refers to user schema
-    }
+    },
+    // load the comments on the posts
+    // include the array of all the ids of the comments in this post schema itself
+    comments:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Comment'
+    }]
 },{
     timestamps:true
 });
