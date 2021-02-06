@@ -1,7 +1,9 @@
+$font-stack: fantasy;
+$primary-color:deepskyblue;
 header{
     display: flex;
-    background: deepskyblue;
-    font-family: fantasy;
+    background:$primary-color;
+    font-family: $font-stack;
     font-size: larger;
     text-shadow: 2px 2px 5px #f0f4c3;
     #header_logo{

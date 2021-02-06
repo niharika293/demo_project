@@ -2,17 +2,25 @@
     <head>
         <title><%=title%></title>
     </head>
-    <body>  (commented for the functioning of layouts.)--> 
+    <body>  (commented for the functioning of layouts.)-->
 
-        <!-- <header>
+<!-- <header>
             Page Header
         </header> -->
-        <!-- Using Partials -->
-        <!-- removed the commented "include header part" as it was making the header to be included twice -->
-        <h1>Codeial Home / <%=title%></h1>
-        <!-- <%-include('_footer');%> -->
-        <!-- <footer>
+<!-- Using Partials -->
+<!-- removed the commented "include header part" as it was making the header to be included twice -->
+<h1>Codeial Home / <%=title%>
+</h1>
+<section id="feed-posts">
+    <h4>Posts</h4>
+    <form action="" method="post" id="new-post-form">
+        <textarea name="content" cols="30" rows="3" placeholder="Type text here..."></textarea>
+        <input type="submit" value="Post">
+    </form>
+</section>
+<!-- <%-include('_footer');%> -->
+<!-- <footer>
             Page Footer
         </footer> -->
-    <!-- </body> -->
+<!-- </body> -->
 <!-- </html> -->

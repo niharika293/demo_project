@@ -1,7 +1,9 @@
+$font-stack: fantasy;
+$primary-color:deepskyblue;
 footer{
     display: flex;
-    background: deepskyblue;
-    font-family: fantasy;
+    background: $primary-color;
+    font-family: $font-stack;
     font-size: large;
     text-shadow: 2px 2px 5px #f0f4c3;
     #jump_links{
