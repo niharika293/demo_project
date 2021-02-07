@@ -17,7 +17,15 @@ module.exports.home = function(req,res){
     //above method has access to oly the user id of the user who's logged in, hence we need to pre-populate
     // the user data before usage.
     //this method finds all the posts made by the user who's logged in and populates the user
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({})
+    .populate('user')
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+    })
+    .exec(function(err,posts){
         return res.render('home', //this will directly look up in the views folder 
         {
             title : "Codeial | Home",
