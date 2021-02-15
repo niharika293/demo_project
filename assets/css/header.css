@@ -1,9 +1,18 @@
+* {
+  box-sizing: border-box; }
+
 header {
   display: flex;
-  background: deepskyblue;
-  font-family: fantasy;
-  font-size: larger;
-  text-shadow: 2px 2px 5px #f0f4c3; }
+  color: whitesmoke;
+  font-family: ui-monospace;
+  font-size: x-large;
+  text-shadow: 2px 2px 5px #f0f4c3;
+  background-image: url("../images/gradient-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+  header #header_logo {
+    flex: 7; }
   header #auth_links {
     display: flex;
     flex-direction: row !important;
@@ -14,3 +23,6 @@ header {
       list-style-type: none;
       flex-grow: 0.2;
       justify-content: space-evenly; }
+      header #auth_links ul li a {
+        color: whitesmoke;
+        text-decoration: none; }

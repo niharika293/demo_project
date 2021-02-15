@@ -1,9 +1,15 @@
 footer {
   display: flex;
-  background: deepskyblue;
-  font-family: fantasy;
-  font-size: large;
-  text-shadow: 2px 2px 5px #f0f4c3; }
+  color: whitesmoke;
+  font-family: ui-monospace;
+  font-size: x-large;
+  text-shadow: 2px 2px 5px #f0f4c3;
+  background-image: url("../images/gradient-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+  footer #copyright {
+    flex: 7; }
   footer #jump_links {
     display: flex;
     flex-direction: row !important;
@@ -14,3 +20,6 @@ footer {
       list-style-type: none;
       flex-grow: 0.2;
       justify-content: space-evenly; }
+      footer #jump_links ul li a {
+        color: whitesmoke;
+        text-decoration: none; }

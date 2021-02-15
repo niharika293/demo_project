@@ -1,7 +1,48 @@
-body{
-    margin: 0;
-    /* text-align: center; */
-    #layout-main{
-        height: 100%;
+html{
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px; 
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background-image: url('../images/gradient_bookeh_bg.jpg');
+        // border-radius: 10px; 
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #f8f5f5;
+    }    
+    body{
+        margin: 0;
+        background-image: url('../images/stellar.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        overflow-y: none;
+        ::-webkit-scrollbar {
+           display: none;
+        }
+        
+        #layout-main{
+            height: 100%;
+            overflow-y: scroll;
+            #div_home_heading{
+            }
+            #feed-posts{
+                background:antiquewhite;
+                width: 70%;
+                margin: auto;
+            }
+            h1{
+                text-align: center;
+                font-family: cursive;
+                color: antiquewhite;
+            }
+        }
     }
 }

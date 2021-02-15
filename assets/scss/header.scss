@@ -1,13 +1,22 @@
-$font-stack: fantasy;
-$primary-color:deepskyblue;
+$font-stack: ui-monospace;
+$primary-color:whitesmoke;
+$font-size:x-large;
+* {
+    box-sizing: border-box;
+  }
 header{
     display: flex;
-    background:$primary-color;
+    color:$primary-color;
     font-family: $font-stack;
-    font-size: larger;
+    font-size: $font-size;
     text-shadow: 2px 2px 5px #f0f4c3;
+    background-image: url('../images/gradient-wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    // margin-bottom: 25px;
     #header_logo{
-        
+        flex: 7;
     }
     #auth_links{
         ul{
@@ -15,6 +24,12 @@ header{
             list-style-type: none;
             flex-grow: 0.2;
             justify-content: space-evenly;
+            li{
+                a{
+                    color: whitesmoke;
+                    text-decoration: none;
+                }
+            }
         }
         display: flex;
         flex-direction: row !important;
