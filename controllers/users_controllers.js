@@ -9,6 +9,17 @@ module.exports.profile = function(req,res){
       });
    });
 }
+module.exports.update = function(req,res){
+   // The logged in user can update only his profile
+   if(req.user.id == req.params.id){
+      User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+         return res.redirect('back');
+      });
+   }
+   else{
+      return res.status(401).send("Unauthorised");
+   }
+}
 // render the user sign-up page 
 module.exports.signup = function(req,res){
    // if the user is already authenticated/logged in, no need for sign-up, redirect to his profile. 
