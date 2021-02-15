@@ -27,16 +27,27 @@ module.exports.destroy = function(req,res){
     // Check whether the comment exists or not
     Comment.findById(req.params.id, function(err,comment){
         // Check whether the user is authorised to delete comment
-        if(comment.user == req.user.id){
+        // console.log(comment); //post nahi mil raha kya??
+        let postId = comment.post;
+        Post.findById({_id:postId},(err,post)=>{
+            console.log(post.user);
+            if(comment.user == req.user.id || post.user == req.user.id){
             // Find the post id of the comment
             let postId = comment.post;
             comment.remove();
+            //ek sec wait pls
+            // ok
             Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}},function(err,post){
+                // console.log(post);
                 return res.redirect('back');
+
             }); 
         }
         else{
+            console.log("not deleting");
             return res.redirect('back');
         }
+        })
+        
     });
 }

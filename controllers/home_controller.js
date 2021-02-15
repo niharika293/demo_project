@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 // Controllers are the actions/group of actions taken for the routes.
 module.exports.home = function(req,res){
     // return res.end('<h1>Express is up for codeial! </h1>');
@@ -25,11 +26,16 @@ module.exports.home = function(req,res){
             path:'user'
         }
     })
-    .exec(function(err,posts){
-        return res.render('home', //this will directly look up in the views folder 
-        {
-            title : "Codeial | Home",
-            posts: posts
-        }); //called using home views. 
+    .exec(
+        function(err,posts){
+            // To get the list of all the users
+            User.find({},function(err,users){
+                return res.render('home', //this will directly look up in the views folder 
+                {
+                    title : "Codeial | Home",
+                    posts: posts,
+                    all_users:users
+                }); //called using home views. 
+            });
     }); 
 }
