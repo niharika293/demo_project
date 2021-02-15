@@ -23,3 +23,20 @@ module.exports.create = function(req,res){
         }
     });
 }
+module.exports.destroy = function(req,res){
+    // Check whether the comment exists or not
+    Comment.findById(req.params.id, function(err,comment){
+        // Check whether the user is authorised to delete comment
+        if(comment.user == req.user.id){
+            // Find the post id of the comment
+            let postId = comment.post;
+            comment.remove();
+            Post.findByIdAndUpdate(postId,{$pull:{comments:req.params.id}},function(err,post){
+                return res.redirect('back');
+            }); 
+        }
+        else{
+            return res.redirect('back');
+        }
+    });
+}
