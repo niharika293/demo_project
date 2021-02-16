@@ -43,7 +43,8 @@ const User = require('../models/User');
 // using async await now. 
 
 module.exports.home = async function(req,res){
-    let posts = await Post.find({})
+    try{
+        let posts = await Post.find({})
     .populate('user')
     .populate({
         path:'comments',
@@ -59,4 +60,8 @@ module.exports.home = async function(req,res){
         posts: posts,
         all_users:users
     }); //called using home views. 
+    }catch(err){
+        console.log("Error",err);
+        return;
+    }
 };
