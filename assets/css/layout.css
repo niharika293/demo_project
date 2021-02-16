@@ -21,10 +21,19 @@ html {
     html body #layout-main {
       height: 100%;
       overflow-y: scroll; }
+      html body #layout-main #home_container {
+        display: flex; }
       html body #layout-main #feed-posts {
         background: antiquewhite;
         width: 70%;
-        margin: auto; }
+        padding: 10px;
+        margin-left: 20px; }
+      html body #layout-main #user-friends {
+        width: 30%;
+        padding: 10px;
+        border-left: 1px solid #212121;
+        height: 100%;
+        margin-left: 10px; }
       html body #layout-main h1 {
         text-align: center;
         font-family: cursive;

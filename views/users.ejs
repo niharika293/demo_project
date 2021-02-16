@@ -19,12 +19,14 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>Codeial-Users!</h1>
 <!-- Access data from server. -->
-<% if(user.id == profile_user.id){%>
+<% if(locals.user.id == profile_user.id){%>
     <!-- If user matches, show the form  -->
     <form action="/user/update/<%=profile_user.id%>" method="post">
         <input type="text" name="name" placeholder="Your Name" value="<%=profile_user.name%>" required>
         <input type="email" name="email" placeholder="Your Email" value="<%=profile_user.email%>" required>
         <input type="submit" value="Update">
+        <!-- <p>printing locals.user.id = <%=locals.user.id%></p> -->
+        <!-- <p>printing user.id = <%=user.id%></p> -->
     </form>
 <%}else{%>
     <p>

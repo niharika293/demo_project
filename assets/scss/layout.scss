@@ -33,10 +33,22 @@ html{
             overflow-y: scroll;
             #div_home_heading{
             }
+            #home_container{
+                display: flex;
+            }
             #feed-posts{
                 background:antiquewhite;
                 width: 70%;
-                margin: auto;
+                // margin: auto;
+                padding: 10px;
+                margin-left: 20px;
+            }
+            #user-friends{
+                width: 30%;
+                padding: 10px;
+                border-left: 1px solid #212121;
+                height: 100%;
+                margin-left: 10px;
             }
             h1{
                 text-align: center;
