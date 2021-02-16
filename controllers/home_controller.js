@@ -1,7 +1,7 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
 // Controllers are the actions/group of actions taken for the routes.
-module.exports.home = function(req,res){
+// module.exports.home = function(req,res){
     // return res.end('<h1>Express is up for codeial! </h1>');
     // reading from cookies.
     // console.log(req.cookies);
@@ -18,24 +18,45 @@ module.exports.home = function(req,res){
     //above method has access to oly the user id of the user who's logged in, hence we need to pre-populate
     // the user data before usage.
     //this method finds all the posts made by the user who's logged in and populates the user
-    Post.find({})
+//     Post.find({})
+//     .populate('user')
+//     .populate({
+//         path:'comments',
+//         populate:{
+//             path:'user'
+//         }
+//     })
+//     .exec(
+//         function(err,posts){
+//             // To get the list of all the users
+//             User.find({},function(err,users){
+//                 return res.render('home', //this will directly look up in the views folder 
+//                 {
+//                     title : "Codeial | Home",
+//                     posts: posts,
+//                     all_users:users
+//                 }); //called using home views. 
+//             });
+//     }); 
+// } 
+// commenting the above home controller and creating a new one, as it promotes to callback-hell.
+// using async await now. 
+
+module.exports.home = async function(req,res){
+    let posts = await Post.find({})
     .populate('user')
     .populate({
         path:'comments',
         populate:{
             path:'user'
         }
-    })
-    .exec(
-        function(err,posts){
-            // To get the list of all the users
-            User.find({},function(err,users){
-                return res.render('home', //this will directly look up in the views folder 
-                {
-                    title : "Codeial | Home",
-                    posts: posts,
-                    all_users:users
-                }); //called using home views. 
-            });
-    }); 
-}
+    });
+    // To get the list of all the users
+    let users = await User.find({});
+    return res.render('home', //this will directly look up in the views folder 
+    {
+        title : "Codeial | Home",
+        posts: posts,
+        all_users:users
+    }); //called using home views. 
+};
