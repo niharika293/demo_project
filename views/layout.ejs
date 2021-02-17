@@ -1,6 +1,8 @@
 <html>
     <head>
         <title><%=title%></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
         <link rel="stylesheet" href="/css/layout.css">
         <!-- this path will be read through the assets folder, 
         since we've already mentioned in the index.js app file 
@@ -15,13 +17,34 @@
     </head>
     <body>
         <%-include('_header');%>
-        <%if(flash.success && flash.success.length>0){%>
+        <!-- <%if(flash.success && flash.success.length>0){%>
             <h5> <%=flash.success%> </h5>
-        <%}%>
+        <%}%>  -->
+        <!-- commented above flash, because using noty.js now -->
         <main id="layout-main">
             <%-body%> 
         </main>
         <%-include('_footer');%>
         <%-script%>
+        <script>
+            <% if(flash.success && flash.success.length >0){%>
+                new Noty({
+                    text: "<%= flash.success %>",
+                    theme:'relax',
+                    type:'success',
+                    layout:'topRight',
+                    timeout:2500
+                }).show();
+            <%}%>
+            <% if(flash.error && flash.error.length >0){%>
+                new Noty({
+                    text: "<%= flash.error %>",
+                    theme:'relax',
+                    type:'error',
+                    layout:'topRight',
+                    timeout:2500
+                }).show();
+            <%}%>
+        </script>
     </body>
 </html>
