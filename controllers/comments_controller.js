@@ -15,11 +15,13 @@ module.exports.create = async function (req, res){
             post.comments.push(comment);
             // Always save after update
             post.save();
+            req.flash('success','Comment Posted!!');
             res.redirect('/');
         }
     }
     catch(err){
         console.log("Error", err);
+        req.flash('error',err);
         return;
     }
 }
@@ -28,25 +30,28 @@ module.exports.destroy = async function (req, res) {
     try {
         // Check whether the comment exists or not
         let comment = await Comment.findById(req.params.id);
-        // Check whether the user is authorised to delete comment
         let postId = comment.post;
         let post = await Post.findById({ _id: postId });
         console.log(post.user);
+        // Check whether the user is authorised to delete comment
         if (comment.user == req.user.id || post.user == req.user.id) {
             // Find the post id of the comment
             let postId = comment.post;
             comment.remove();
             Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }, function (err, post) {
+                req.flash('success',"Comment deleted!");
                 return res.redirect('back');
             });
         }
         else {
             console.log("not deleting");
+            req.flash('error',"Not deleting comment!");
             return res.redirect('back');
         }
     }
     catch (err) {
         console.log("Error", err);
+        req.flash('error',err);
         return;
     }
 }
