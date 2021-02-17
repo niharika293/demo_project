@@ -66,11 +66,14 @@ module.exports.create = function(req,res){
 }
 // Sign-In and Create a session for the user.
 module.exports.createSession = function(req,res){
-   console.log("createSession controller called!!");
+   // console.log("createSession controller called!!");
+   // Send flash msgs from the current request being completed to the next page.
+   req.flash('success',"Logged In Successfully!!"); 
    return res.redirect('/');
 }
 // Sign-out and destroy a session for the user
 module.exports.destroySession = function(req,res){
+   req.flash('success',"You have been logged out successfully!!"); 
    req.logout(); //passport gives this to the request
    return res.redirect('/');
 } 
