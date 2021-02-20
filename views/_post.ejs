@@ -1,11 +1,11 @@
-<li>
+<li id ="post-<%= post.id%>">
     <p>
         <%=post.content%>
         <br>
         <!-- delete is visible only to the user who's siigned in & who created the post. -->
         <% if(locals.user && locals.user.id==post.user.id){%>
         <small>
-            <a href="/posts/destroy/<%=post.id%>">Delete Post</a>
+            <a class="delete-post-button" href="/posts/destroy/<%=post.id%>">Delete Post</a>
         </small>
         <%}%>
         <small>
