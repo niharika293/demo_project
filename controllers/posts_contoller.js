@@ -5,10 +5,19 @@ module.exports.create = async function (req, res) {
      //Create a post
      //console.log(req.user);
      try {
-          await Post.create({
+          let post = await Post.create({
                content: req.body.content,
                user: req.user._id
           });
+          // check if the request is an AJAX request
+          if(req.xhr){
+               return res.status(200).json({
+                    data:{
+                         post: post
+                    },
+                    message: "Post created!"
+               });
+          }
           req.flash('success','Post Published!');
           return res.redirect('back');
      }
