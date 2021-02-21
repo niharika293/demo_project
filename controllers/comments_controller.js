@@ -15,6 +15,15 @@ module.exports.create = async function (req, res){
             post.comments.push(comment);
             // Always save after update
             post.save();
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        comment : comment,
+                        post : post
+                    },
+                    message : "Comment Created!"
+                });
+            }
             req.flash('success','Comment Posted!!');
             res.redirect('/');
         }
@@ -38,10 +47,21 @@ module.exports.destroy = async function (req, res) {
             // Find the post id of the comment
             let postId = comment.post;
             comment.remove();
-            Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } }, function (err, post) {
-                req.flash('success',"Comment deleted!");
-                return res.redirect('back');
-            });
+            let post =  Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
+            
+            if(req.xhr){
+                //console.log("executing delete comment controller");
+                return res.status(200).json({
+                    data:{
+                        comment_id : req.params.id
+                    },
+                    message : "Comment Deleted!"
+                });
+            }
+
+            req.flash('success',"Comment deleted!");
+            return res.redirect('back');
+            
         }
         else {
             console.log("not deleting");
