@@ -70,7 +70,7 @@
                     $(`#post-${data.data.post_id}`).remove();
                     new Noty({
                         theme: 'relax',
-                        text: "Post Deleted!",
+                        text: "Post and associated comments Deleted!!",
                         type: 'success',
                         layout: 'topRight',
                         timeout: 1500

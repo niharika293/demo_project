@@ -16,6 +16,7 @@ module.exports.create = async function (req, res){
             // Always save after update
             post.save();
             if(req.xhr){
+                comment = await comment.populate('user','name').execPopulate();
                 return res.status(200).json({
                     data:{
                         comment : comment,

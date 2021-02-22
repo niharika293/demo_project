@@ -11,6 +11,8 @@ module.exports.create = async function (req, res) {
           });
           // check if the request is an AJAX request
           if(req.xhr){
+               // populate the name of the user
+               post = await post.populate('user','name').execPopulate();
                return res.status(200).json({
                     data:{
                          post: post
@@ -39,6 +41,7 @@ module.exports.destroy = async function (req, res) {
                await Comment.deleteMany({ post: req.params.id });
 
                if(req.xhr){
+                    
                     return res.status(200).json({
                          data:{
                               post_id: req.params.id
