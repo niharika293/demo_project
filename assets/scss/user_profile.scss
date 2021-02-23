@@ -1,3 +1,25 @@
 body{
     background-color: lightblue;
+    #layout-main{
+        margin-left: 10px;
+        #img_dp{
+            margin: 10px;
+        }
+        #container{
+            border: 2px dotted antiquewhite;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 500px;
+            #preview_text{
+                color: antiquewhite;
+                font-family: cursive;
+                font-size: larger;
+            }
+            #preview{
+                width: 150px;
+                margin: 10px;
+            }
+        }
+    }
+   
 }

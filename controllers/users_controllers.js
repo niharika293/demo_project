@@ -1,4 +1,7 @@
 const User = require('../models/User');
+const fs = require('fs');
+const path = require('path');
+
 // render the user profile page 
 module.exports.profile = function (req, res) {
    // return res.end('<h1>Users Profile </h1>');
@@ -11,14 +14,6 @@ module.exports.profile = function (req, res) {
 }
 module.exports.update = async function (req, res) {
    // The logged in user can update only his profile
-   // if(req.user.id == req.params.id){
-   //    User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
-   //       return res.redirect('back');
-   //    });
-   // }
-   // else{
-   //    return res.status(401).send("Unauthorised");
-   // }
    if (req.user.id == req.params.id) {
       try {
          let user = await User.findById(req.params.id);
@@ -31,10 +26,15 @@ module.exports.update = async function (req, res) {
             user.email = req.body.email;
             if(req.file){
                // saving the path of the uploaded file into the avatar field of the user
-               user.avatar = User.avatarPath+'/'+req.file.fileName; 
+               //console.log(req.file);
+               // if the user has aleady uploaded an avatar before, delete the old avatars. 
+               if(user.avatar){
+                  fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+               }
+               user.avatar = User.avatarPath + '/' + req.file.filename; 
             }
             user.save();
-            req.flash('success',"File uploaded successfully!");
+            // req.flash('success',"File uploaded successfully!");
             return res.redirect('back');
          });
       }

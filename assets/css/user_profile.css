@@ -1,2 +1,18 @@
 body {
   background-color: lightblue; }
+  body #layout-main {
+    margin-left: 10px; }
+    body #layout-main #img_dp {
+      margin: 10px; }
+    body #layout-main #container {
+      border: 2px dotted antiquewhite;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 500px; }
+      body #layout-main #container #preview_text {
+        color: antiquewhite;
+        font-family: cursive;
+        font-size: larger; }
+      body #layout-main #container #preview {
+        width: 150px;
+        margin: 10px; }

@@ -17,15 +17,20 @@
  2. above approach is insufficient when the app isn't extracting styles in the app index file. -->
 
 <link rel="stylesheet" href="/css/user_profile.css">
-<h1>Codeial-Users!</h1>
+
+<img src="<%=user.avatar%>" alt="<%=user.name %>" width="100" id="img_dp" >
 <!-- Access data from server. -->
 <% if(locals.user.id == profile_user.id){%>
     <!-- If user matches, show the form  -->
     <form action="/user/update/<%=profile_user.id%>" method="post" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" value="<%=profile_user.name%>" required>
         <input type="email" name="email" placeholder="Your Email" value="<%=profile_user.email%>" required>
-        <input type="file" name="avatar" placeholder="Profile picture">
-        <input type="submit" value="Update">
+        <input type="file" name="avatar" placeholder="Profile picture" id="file-input" onchange="preview()";>
+        <div id='container'>
+            <p id="preview_text">Preview  your profile pic before upload.</p>
+            <img id="preview">
+          </div>
+        <input type="submit" value="Update" id="upd_profile_pic">
         <!-- <p>printing locals.user.id = <%=locals.user.id%></p> -->
         <!-- <p>printing user.id = <%=user.id%></p> -->
     </form>
@@ -37,6 +42,7 @@
         <%=profile_user.email%>
     </p>    
 <%}%>
+<script src="/js/user_profile.js"></script>
 <!-- <%-include('_footer');%> -->
 <!-- <footer>
             Page Footer

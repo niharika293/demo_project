@@ -32,6 +32,9 @@ app.use(cookieParser());
 
 // tell the app to use static files in assets folder.
 app.use(express.static('./assets'));
+// make the upload path available to the browser
+app.use('/uploads',express.static(__dirname+'/uploads'));
+
 
 // tell the app to  use the layouts before the views to render pages accordingly as they're the wrappers for every view. 
 app.use(expressLayouts);
