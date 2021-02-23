@@ -21,9 +21,10 @@
 <!-- Access data from server. -->
 <% if(locals.user.id == profile_user.id){%>
     <!-- If user matches, show the form  -->
-    <form action="/user/update/<%=profile_user.id%>" method="post">
+    <form action="/user/update/<%=profile_user.id%>" method="post" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Your Name" value="<%=profile_user.name%>" required>
         <input type="email" name="email" placeholder="Your Email" value="<%=profile_user.email%>" required>
+        <input type="file" name="avatar" placeholder="Profile picture">
         <input type="submit" value="Update">
         <!-- <p>printing locals.user.id = <%=locals.user.id%></p> -->
         <!-- <p>printing user.id = <%=user.id%></p> -->
