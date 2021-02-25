@@ -19,8 +19,8 @@ module.exports.create = async function (req, res){
                 comment = await comment.populate('user','name').execPopulate();
                 return res.status(200).json({
                     data:{
-                        comment : comment,
-                        post : post
+                        comment : comment
+                        // post : post
                     },
                     message : "Comment Created!"
                 });

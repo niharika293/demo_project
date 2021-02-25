@@ -59,7 +59,7 @@ module.exports.home = async function(req,res){
     {
         title : "Codeial | Home",
         posts: posts,
-        all_users:users
+        all_users: users
     }); //called using home views. 
     }catch(err){
         console.log("Error",err);
