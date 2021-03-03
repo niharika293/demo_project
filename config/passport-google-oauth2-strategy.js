@@ -11,9 +11,12 @@ const User = require('../models/User');
 passport.use(new googleStrategy({
     clientID :"374632310222-6d8952rjvu8cni5f25aovh3c0624ce30.apps.googleusercontent.com",
     clientSecret : "CNwTrJJYdo_cyoYZkfEOPzuS",
-    callbackURL : "http://localhost:8000/users/auth/google/callback"
+    callbackURL : "http://localhost:8000/user/auth/google/callback"
 },function(accessToken,refreshToken,profile,done){
     // Find the user with the email in the DB.
+    console.log("printing for profile email",profile.emails);
+    console.log("test for 0",profile.emails[0]);
+
     User.findOne({
         email : profile.emails[0].value
     }).exec(function(err,user){

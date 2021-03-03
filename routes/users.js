@@ -16,4 +16,15 @@ router.post('/create-session', passport.authenticate(
     ), usersController.createSession);
 router.get('/sign-out',usersController.destroySession);
 
+// this route will fetch data from google.
+// "/auth/google" is given by passport, google will recognise it.
+// "google" -> Strategy
+// Scope : array of strings, it's the info which we're looking to fetch.
+// email is not a part of the profile, you need to seek permissions for it.  
+router.get('/auth/google',passport.authenticate('google',{scope : ['profile', 'email']}));
+
+// Google will respond to this URL after fetching, this will recieve the data.
+
+router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect : '/user/login'}),usersController.createSession);
+
 module.exports = router;

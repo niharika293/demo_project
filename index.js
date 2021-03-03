@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
 // Put Sass Middleware settings before the server starts, so that all the sass files get pre-compiled
 // before they are accessed.
