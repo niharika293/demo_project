@@ -38,3 +38,6 @@ html {
         text-align: center;
         font-family: cursive;
         color: antiquewhite; }
+      html body #layout-main .link_google {
+        color: antiquewhite;
+        font-size: large; }
