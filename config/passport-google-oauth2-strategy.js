@@ -1,6 +1,6 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const crypto = require('crypto');
+const crypto = require('crypto'); // For random passords
 const User = require('../models/User');
 
 // Tell Passport to use google-oAuth2 Strategy.
@@ -26,6 +26,7 @@ passport.use(new googleStrategy({
         }
         console.log(profile);
         // if found, set the user as req.user
+        // req.user means to sign-in that user
         if(user){
             return done(null,user);
         }
