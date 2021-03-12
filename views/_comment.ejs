@@ -2,6 +2,7 @@
     <p>
         <% if(locals.user && (locals.user.id==comment.user.id || locals.user.id ==post.user.id)){%>
             <small>
+                <a class = "like-comment-button" href=""><i class="fas fa-thumbs-up"></i></a>
                 <a class="delete-comment-button" href="/comments/destroy/<%=comment.id%>">Delete Comment</a>
             </small>
         <%}%>

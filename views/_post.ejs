@@ -5,6 +5,7 @@
         <!-- delete is visible only to the user who's siigned in & who created the post. -->
         <% if(locals.user && locals.user.id==post.user.id){%>
         <small>
+            <a class = "like-post-button" href=""><i class="fas fa-thumbs-up"></i></a>
             <a class="delete-post-button" href="/posts/destroy/<%=post.id%>">Delete Post</a>
         </small>
         <%}%>
