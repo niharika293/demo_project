@@ -1,6 +1,6 @@
 const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const crypto = require('crypto'); // For random passords
+const crypto = require('crypto'); // For random passwords
 const User = require('../models/User');
 
 // Tell Passport to use google-oAuth2 Strategy.

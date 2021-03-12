@@ -38,6 +38,9 @@ html {
         text-align: center;
         font-family: cursive;
         color: antiquewhite; }
-      html body #layout-main .link_google {
+      html body #layout-main .link_google, html body #layout-main .link_forget_pw {
         color: antiquewhite;
-        font-size: large; }
+        font-size: large;
+        margin-right: 20px; }
+      html body #layout-main #link_desc {
+        color: antiquewhite; }

@@ -1,5 +1,8 @@
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
+const commentsMailer = require('../mailers/comments_mailer');
+const queue = require('../config/kue');
+const commentEmailWorker = require('../workers/comment_email_workers');
 
 module.exports.create = async function (req, res){
     try {
@@ -15,8 +18,21 @@ module.exports.create = async function (req, res){
             post.comments.push(comment);
             // Always save after update
             post.save();
+            // User should be pre-populated when it's being sent from controller to mailer. 
+            comment = await comment.populate('user','name email').execPopulate();
+            
+            // commenting as mails would be generated through delayed job queues.
+            // commentsMailer.newComment(comment);
+            // Every time we put into a queue, its called a job.
+            let job = queue.create('emails',comment).save(function(err){
+                if(err){
+                    console.log('Error in sending to the queue',err);
+                    return;
+                }
+                console.log('Job queue enqueued', job.id);
+            });
+
             if(req.xhr){
-                comment = await comment.populate('user','name').execPopulate();
                 return res.status(200).json({
                     data:{
                         comment : comment

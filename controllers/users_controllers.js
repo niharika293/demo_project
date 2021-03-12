@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const ResetPassToken = require('../models/PassToken');
+const crypto = require('crypto'); // For random passwords
 const fs = require('fs');
 const path = require('path');
 
@@ -106,3 +108,187 @@ module.exports.destroySession = function (req, res) {
    req.logout(); //passport gives this to the request
    return res.redirect('/');
 } 
+
+// Creates the access token
+module.exports.createToken = async function(req,res){
+   if (req.user)//user should not be logged in before accessing this page or using this action
+    {
+        return res.redirect('back');
+    }
+   let accessTokenString = await crypto.randomBytes(40).toString('hex');
+   
+   // find the user whose email is found in request,
+   // whose password needs to be changed.
+
+   try
+   {
+      var user = await User.findOne({ email: req.body.email });
+      /* this is kept as var so that the next try written below identifies the user variable */
+   }
+   catch (error)
+   {
+       if (error)
+       {
+           console.log('There was an error in finding the user whose email is provided in the reset password form!', error);
+           return;
+       }
+   }
+   /* generating token for the particular user whose email is provided for resetting password */
+   try
+   {
+       let token = await ResetPassToken.create(
+           {
+               isValid: true,
+               accessToken: accessTokenString,
+               user: user
+           }
+       );
+       token = await token.populate('user', 'email').execPopulate();
+       return res.render('forgot_password',{
+         accessToken : accessTokenString,
+         title : 'Codeial | Reset Password'
+      });
+   }
+   catch (error)
+   {
+       console.log('There was a problem in creating a token to reset users password!', error);
+       return;
+   }
+}
+// Check the token for its validity
+module.exports.checkToken = async function(req,res){
+   if (req.user)//user should not be logged in before accessing this page or using this action
+    {
+        return res.redirect('back');
+    }
+    let token_in_link = req.query.accessToken;
+    try
+    {
+        let token = await ResetPassToken.findOne({ accessToken: token_in_link });
+        if (!token.isValid)
+        {
+            return res.redirect('back');
+        }
+      //   if token is valid, change passwod in DB, update isValid to false.
+   let token_in_body = req.body.accessToken;
+   if(req.body.Choose_password != req.body.Confirm_password){
+      req.flash('Error',"Passwords do not match, Try again!");
+      return(res.redirect('back'));
+   }
+   if (req.body.Choose_password == "")
+    {
+        req.flash('error', 'Please enter a non empty password in both the fields!');
+        return res.redirect('back');
+    }
+
+    /* get the token, get user.id from the token,
+      find (and update) the user with the given userid on the Users model,
+      mark the is_valid in the token as false.*/
+      ResetPassToken.findOneAndUpdate({ accessToken: req.body.accessToken }, 
+         { $set: { isValid: false } }, function (error, token)
+      {
+          console.log("printing token",token);
+          console.log(`Printing email : ${req.body.email}`);
+          if (error)
+          {
+              console.log('Error in finding the token with given access_token string!', error);
+              return;
+          }
+          if (!token.isValid)
+          {
+              return res.redirect('back');
+          }
+          User.findOneAndUpdate({email : req.body.email}, { $set: { password: req.body.Choose_password} }, function (error, user)
+          {
+              if (error)
+              {
+                  console.log('Error in finding the user with the provided token!',error);
+                  return;
+              }
+              console.log("Printing new password",user.password,"Checking token validity" ,token.isValid);
+            //   console.log(user.password, token.isValid);
+              return res.redirect('/user/login');
+          });
+      });
+   }
+    catch (error)
+    {
+        if (error)
+        {
+            console.log('Unable to find the given token in the tokens model!',error);
+            return;
+        }
+    }
+
+}
+
+// Update the password in DB if the form is successfully submitted. 
+// module.exports.changePassword = function(req,res){
+//    // this.createToken();
+//    // /this.checkToken();
+//    if (req.user)//user should not be logged in before accessing this page or using this action
+//     {
+//         return res.redirect('back');
+//     }
+//    let token_in_link = req.body.access_token;
+//    if(req.body.inp_pw != req.body.inp_cnf_pw){
+//       req.flash('Error',"Passwords do not match, Try again!");
+//       return(res.redirect('back'));
+//    }
+//    if (req.body.inp_pw == "")
+//     {
+//         req.flash('error', 'Please enter a non empty password in both the fields!');
+//         return res.redirect('back');
+//     }
+//     /* get the token, get user.id from the token,
+//       find (and update) the user with the given userid on the Users model,
+//       mark the is_valid in the token as false.*/
+//       ResetPassToken.findOneAndUpdate({ accessToken: token_in_link }, { $set: { isValid: false } }, function (error, token)
+//       {
+//           console.log(token);
+//           if (error)
+//           {
+//               console.log('Error in finding the token with given access_token string!', error);
+//               return;
+//           }
+//           if (!token.isValid)
+//           {
+//               return res.redirect('back');
+//           }
+//           User.findByIdAndUpdate(token.user, { $set: { password: req.body.inp_pw } }, function (error, user)
+//           {
+//               if (error)
+//               {
+//                   console.log('Error in finding the user with the provided token!');
+//                   return;
+//               }
+//               console.log(user.password, token.isValid);
+//               return res.redirect('/user/sign_In');
+//           });
+//       });
+//   }
+   
+
+   // if both paswords match, update the password in user schema.
+   // let user  = await User.findByIdAndUpdate(
+   // {email : req.body.email},
+   // {password : req.body.inp_pw}, function(err,user){      
+   //    if (err) {
+   //       console.log("Error in finding user for changing password",err);
+   //       return;
+   //    }
+   // });
+   // // After updating the pasword, reset the token. 
+   // let tokenID = await ResetPassToken.findOneAndUpdate(
+   //    {user : user}, 
+   //    { "$set" : { accessToken : accessToken, isValid : false}}, 
+   //    function(err,resetToken){      
+   //       if (err) {
+   //          console.log("Error in finding user to be reset for changing password in token schema",err);
+   //          return;
+   //       }
+   //       return res.render('forgot_password',{
+   //          accessToken : accessToken
+   //       });
+   //    });
+   // }

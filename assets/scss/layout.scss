@@ -55,9 +55,13 @@ html{
                 font-family: cursive;
                 color: antiquewhite;
             }
-            .link_google{
+            .link_google,.link_forget_pw{
                 color: antiquewhite;
                 font-size: large;
+                margin-right: 20px;
+            }
+            #link_desc{
+                color: antiquewhite;
             }
         }
     }
