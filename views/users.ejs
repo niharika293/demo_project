@@ -47,7 +47,6 @@
     <!-- if friendship exists, show link to add as friend, else delete as friend. -->
 
 
-<p>printing from views <%=are_friends%></p>
 <%if(locals.are_friends==true){%>
     <a class="toggle-friends-button" href="/friends/toggle/<%=profile_user._id%>" >Unfollow</a>
     <%}else{console.log("are friends",are_friends);%>
