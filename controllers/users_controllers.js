@@ -1,19 +1,87 @@
 const User = require('../models/User');
 const ResetPassToken = require('../models/PassToken');
+const Friendship = require('../models/Friendship');
 const crypto = require('crypto'); // For random passwords
 const fs = require('fs');
 const path = require('path');
 
 // render the user profile page 
-module.exports.profile = function (req, res) {
-   // return res.end('<h1>Users Profile </h1>');
-   User.findById(req.params.id, function (err, user) {
-      return res.render('users', {
-         title: "Users at Codeial!",
-         profile_user: user
-      });
+// module.exports.profile = function (req, res) {
+//    // return res.end('<h1>Users Profile </h1>');
+//    // Find the friendship of the user with the user whose profile is getting opened.
+//    // let existingFriendship;
+//    // existingFriendship = Friendship.find({from_user : req.user.id, to_user : req.params.id},
+//    //    function(err,friendship){
+//    //       if(err){
+//    //          console.log("Error in finding the friendship ", err);
+//    //          return;
+//    //       }
+//    //       console.log("checking friensdhip ",friendship);
+//    //    });
+//    // console.log("exising friendship", existingFriendship);
+//    let are_friends = false;
+
+//    Friendship.findOne({
+//        $or: [{ from_user: req.user._id, to_user: req.params.id },
+//        { from_user: req.params.id, to_user: req.user._id }]
+//    }, function (error, friendship)
+//    {
+//        if (error)
+//        {
+//            console.log('There was an error in finding the friendship', error);
+//            return;
+//        }
+//        if (friendship)
+//        {
+//           console.log(friendship,"Users Friend");
+//            are_friends = true;
+//        }
+//    });
+//    User.findById(req.params.id, function (err, user) {
+//       return res.render('users', {
+//          title: "Users at Codeial!",
+//          profile_user: user,
+//          are_friends : are_friends
+//       });
+//    });
+
+// }
+module.exports.profile =async function (req, res) {
+   try {
+       let user = await User.findById(req.params.id); 
+       let from_id = req.user._id;
+       let to_id = req.params.id;
+       let are_friends = false;
+      // console.log("checking from users_controller :: are_friends",are_friends);
+       Friendship.findOne({
+           $or: [{ from_user: from_id, to_user: to_id },
+           { from_user: to_id, to_user: from_id }]
+       }, function (error, friendship)
+       {
+         console.log("checking from users_controller inside () friendship",friendship);
+           if (error)
+           {
+               console.log('There was an error in finding the friendship', error);
+               return;
+           }
+           if (friendship)
+           {
+               are_friends = true;
+           }
+          console.log("checking from users_controller friendship",friendship);
+       
+         return res.render('users.ejs', {
+           title: 'Codeial | Users',
+           profile_user:user,
+           are_friends: are_friends
+       });
    });
-}
+   } catch (error) {
+       console.log('error in finding user in profile user'); 
+       return res.redirect('back');
+   }
+   
+};
 module.exports.update = async function (req, res) {
    // The logged in user can update only his profile
    if (req.user.id == req.params.id) {

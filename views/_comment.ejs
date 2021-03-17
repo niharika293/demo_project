@@ -2,7 +2,6 @@
     <p>
         <% if(locals.user && (locals.user.id==comment.user.id || locals.user.id ==post.user.id)){%>
             <small>
-                <a class = "like-comment-button" href=""><i class="fas fa-thumbs-up"></i></a>
                 <a class="delete-comment-button" href="/comments/destroy/<%=comment.id%>">Delete Comment</a>
             </small>
         <%}%>
@@ -10,6 +9,17 @@
         <br>
         <small>
             <%=comment.user.name%>
+        </small>
+        <!-- If a user is signed in, display the link to add/remove likes on Comments -->
+        <small>
+            <% if(locals.user){ %>
+                <a class = "toggle-like-button" data-likes="<%=comment.likes.length%>" 
+                    href="/likes/toggle?id=<%=comment._id%>&type=Comment"> <i class="fas fa-thumbs-up"></i>
+                    <%=comment.likes.length%>
+                </a>
+            <%}else{%> <!--if signed out, don't give the link-->
+                <i class="fas fa-thumbs-up"></i> <%=comment.likes.length%>
+            <%}%>    
         </small>
     </p>
 </li>

@@ -18,6 +18,9 @@
                     // req.flash('post published!');
                     // call the create comment class
                     new PostComments(data.data.post._id);
+                    
+                    // attach the Toggle-like class to the link of <a> tag whenever a new post is create using DOM /dynamically.
+                    new ToggleLike($(' .toggle-like-button',newPost));
 
                     new Noty({
                         theme: 'relax',
@@ -35,6 +38,7 @@
         });
     }
     // method to create a post in DOM
+    // Whenever a new Post is added, I need to show 0 likes dynamically on the Post using DOM.
     let newPostDom = function (post) {
         return $(`<li id ="post-${post._id}">
          <p>
@@ -46,6 +50,10 @@
              <small>
                  ${post.user.name}
              </small>
+             <br>
+             <a class="toggle-like-button" data-likes="0" href="/likes/toggle?id=${ post._id}&type=Post">
+                <i class="fas fa-thumbs-up"></i>0 
+            </a>
          </p>
          <div class="post-comments">
                  <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">

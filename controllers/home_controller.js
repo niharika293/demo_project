@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Friendship = require('../models/Friendship');
 // Controllers are the actions/group of actions taken for the routes.
 // module.exports.home = function(req,res){
     // return res.end('<h1>Express is up for codeial! </h1>');
@@ -41,7 +42,7 @@ const User = require('../models/User');
 // } 
 // commenting the above home controller and creating a new one, as it promotes to callback-hell.
 // using async await now. 
-
+// Home Page should have the count of likes associated with each post & comment. 
 module.exports.home = async function(req,res){
     try{
         let posts = await Post.find({})
@@ -49,17 +50,64 @@ module.exports.home = async function(req,res){
     .populate('user')
     .populate({
         path:'comments',
-        populate:{
-            path:'user'
-        }
-    });
+        populate:{path:'user'},
+        populate : {path : 'likes'} // for likes on comment
+    }).populate('likes'); // for likes on posts
     // To get the list of all the users
     let users = await User.find({});
+    let friends = new Array();
+    if (req.user)/* friends list will only be loaded if thhe user is signed in */
+    {
+        let all_friendships = await Friendship.find({ $or: [{ from_user: req.user._id }, { to_user: req.user._id }] })
+            .populate('from_user')
+            .populate('to_user');/* checking the friendship model in the fields "from user" and "to_user". the current logged in user has to be in one of them. and at the same time we are also populating it to see the user ids*/
+        for (let fs of all_friendships)/* storing all the friendships in an array so that it is easy to load them in the front end quickly */
+        {
+            if (fs.from_user._id.toString() == req.user._id.toString())
+            {
+                friends.push({
+                    friend_name: fs.to_user.name,
+                    friend_id: fs.to_user._id,
+                    friend_avatar:fs.to_user.avatar
+                });
+            }
+            else if (fs.to_user._id.toString() == req.user._id.toString())
+            {
+                friends.push({
+                    friend_name: fs.from_user.name,
+                    friend_id: fs.from_user._id,
+                    friend_avatar:fs.from_user.avatar
+                });
+            }
+        }
+    }
+
+    // let loggedInUserFriends,loggedInUserFriendsNames;
+    // // To get the list of all friends of the user
+    // if(req.user){
+    //     loggedInUserFriends = await Friendship.find({from_user : req.user._id},function(err,user){
+    //         if(err){
+    //             console.log("Error in finding the user",err);
+    //             return;
+    //         }
+    //         console.log("logged in user found",user);
+    //     });
+    //     console.log("Printing loggedIn user's friends ",loggedInUserFriends);
+    //     loggedInUserFriendsNames = await User.find({friendships : loggedInUserFriends._id},function(err,userName){
+    //         if(err){
+    //             console.log("Error in finding the user",err);
+    //             return;
+    //         }
+    //         console.log("logged in user found",userName);
+    //     });
+    // }
+    
     return res.render('home', //this will directly look up in the views folder 
     {
         title : "Codeial | Home",
         posts: posts,
-        all_users: users
+        all_users: users,
+        all_friends : friends
     }); //called using home views. 
     }catch(err){
         console.log("Error",err);

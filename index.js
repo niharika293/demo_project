@@ -21,7 +21,7 @@ const passportGoogle = require('./config/passport-google-oauth2-strategy');
 app.use(sassMiddleware({
     src:'./assets/scss',
     dest:'./assets/css',
-    debug:true, //enables to see the errors if the files fail to compile from scss to css
+    // debug:true, //enables to see the errors if the files fail to compile from scss to css
     outputStyle:'extended', //output : multiple lines
     prefix:'/css' //t will tell the sass middleware that any request file will always be prefixed with <prefix> and this prefix should be ignored.
 }));

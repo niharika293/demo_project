@@ -1,7 +1,7 @@
 const Like = require('../models/Like');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
-const like = require('../models/Like');
+// const like = require('../models/Like');
 
 // toggleLink action acts as a toggle switch, it checks if there's a like present, & if pressed, it'll 
 // decrease the count of like & remove. 
@@ -41,8 +41,8 @@ module.exports.toggleLink = async function(req,res){
                 likeable : req.query.id,
                 onModel : req.query.type
             });
-            // Now, Push the likes in Posts/comments
-            likeable.likes.push(like._id);
+            // Now, Push the newly created likes in Posts/comments
+            likeable.likes.push(newLike._id);
             likeable.save();
         }
         return res.json(200,{

@@ -17,8 +17,11 @@
  2. above approach is insufficient when the app isn't extracting styles in the app index file. -->
 
 <link rel="stylesheet" href="/css/user_profile.css">
-
-<img src="<%=user.avatar%>" alt="<%=user.name %>" width="100" id="img_dp" >
+<% if(locals.user.id != profile_user.id){%>
+    <img src="<%=profile_user.avatar%>" width="100" id="img_dp" >
+<%}else{%>
+    <img src="<%=user.avatar%>" alt="<%=user.name %>" width="100" id="img_dp" >
+<%}%>
 <!-- Access data from server. -->
 <% if(locals.user.id == profile_user.id){%>
     <!-- If user matches, show the form  -->
@@ -40,7 +43,17 @@
     </p>
     <p>
         <%=profile_user.email%>
-    </p>    
+    </p>
+    <!-- if friendship exists, show link to add as friend, else delete as friend. -->
+
+
+<p>printing from views <%=are_friends%></p>
+<%if(locals.are_friends==true){%>
+    <a class="toggle-friends-button" href="/friends/toggle/<%=profile_user._id%>" >Unfollow</a>
+    <%}else{console.log("are friends",are_friends);%>
+        <a class="toggle-friends-button" href="/friends/toggle/<%=profile_user._id%>" >Follow </a>
+      <%}%>
+
 <%}%>
 <script src="/js/user_profile.js"></script>
 <!-- <%-include('_footer');%> -->

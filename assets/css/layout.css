@@ -44,3 +44,5 @@ html {
         margin-right: 20px; }
       html body #layout-main #link_desc {
         color: antiquewhite; }
+      html body #layout-main .toggle-like-button, html body #layout-main .toggle-like-button i {
+        text-decoration: none; }

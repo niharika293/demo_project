@@ -31,17 +31,41 @@
         </ul>
     </div>
     </section>
+    <%if(locals.user){%>
     <section id="user-friends">
         <h4>Friends</h4>
-        <%for( u of all_users){%>
-            <p>
-                <a href="/user/profile/<%=u.id%>"><%=u.name%></a>
-            </p>
-        <%}%>
-    </section>    
+            <%for( f of all_friends){%>
+                <p>
+                    <!-- <a href="/user/profile/<%=f.id%>"><%=f.from_user%></a> -->
+                    <a href="/user/profile/<%=f.friend_id%>"><%=f.friend_name%></a>
+                </p>
+            <%}%>
+        
+        <section id="users-section">
+            <h4>Users</h4>
+
+            <%for( u of all_users){%>
+                <p>
+                    <a href="/user/profile/<%=u.id%>"><%=u.name%></a>
+                </p>
+            <%}%>
+        
+        </section> 
+    </section>
+    <%}%>
 </div>
 <script src="/js/home_comments.js"></script>
 <script src="/js/home_posts.js"></script>
+<!-- Import script for toggle likes & run it over for already present posts & comments on the page. -->
+<script src="js/toggle_likes.js"></script>
+<script>
+    // For each toggle like button on the page, it calls the ToggleLike Class.
+    $('.toggle-like-button').each(function(){
+        // alert(10);
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>
 
 <!-- <%-include('_footer');%> -->
 <!-- <footer>
