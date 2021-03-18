@@ -11,6 +11,7 @@
         to look for the static files in assets folder. -->
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/chatbox.css">
         <%-style%>
         <!-- this way, the stylesheet will be read through the link tag provided in the
             target view or html file :) -->
@@ -25,6 +26,9 @@
         <!-- commented above flash, because using noty.js now -->
         <main id="layout-main">
             <%-body%> 
+            <%if(locals.user){%>
+                <%-include('_chatbox');%>
+            <%}%>
         </main>
         <%-include('_footer');%>
         <%-script%>
@@ -49,4 +53,11 @@
             <%}%>
         </script>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js" integrity="sha512-2RDFHqfLZW8IhPRvQYmK9bTLfj/hddxGXQAred2wNZGkrKQkLGj8RCkXfRJPHlDerdHHIzTFaahq4s/P4V6Qig==" crossorigin="anonymous"></script>
+    <script src="/js/chat_engine.js"></script>
+    <% if(locals.user){%>
+        <script>
+            new ChatEngine('user-chat-box','<%=locals.user._id%>');
+        </script>
+    <%}%>
 </html>

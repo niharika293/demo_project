@@ -63,6 +63,7 @@ module.exports.home = async function(req,res){
             .populate('to_user');/* checking the friendship model in the fields "from user" and "to_user". the current logged in user has to be in one of them. and at the same time we are also populating it to see the user ids*/
         for (let fs of all_friendships)/* storing all the friendships in an array so that it is easy to load them in the front end quickly */
         {
+            // Checking if the logged in user is existing as a friend as *from_user* in the friendship schema.
             if (fs.from_user._id.toString() == req.user._id.toString())
             {
                 friends.push({
@@ -71,6 +72,7 @@ module.exports.home = async function(req,res){
                     friend_avatar:fs.to_user.avatar
                 });
             }
+            // Checking if the logged in user is existing as a friend as *to_user* in the friendship schema.
             else if (fs.to_user._id.toString() == req.user._id.toString())
             {
                 friends.push({
@@ -82,26 +84,6 @@ module.exports.home = async function(req,res){
         }
     }
 
-    // let loggedInUserFriends,loggedInUserFriendsNames;
-    // // To get the list of all friends of the user
-    // if(req.user){
-    //     loggedInUserFriends = await Friendship.find({from_user : req.user._id},function(err,user){
-    //         if(err){
-    //             console.log("Error in finding the user",err);
-    //             return;
-    //         }
-    //         console.log("logged in user found",user);
-    //     });
-    //     console.log("Printing loggedIn user's friends ",loggedInUserFriends);
-    //     loggedInUserFriendsNames = await User.find({friendships : loggedInUserFriends._id},function(err,userName){
-    //         if(err){
-    //             console.log("Error in finding the user",err);
-    //             return;
-    //         }
-    //         console.log("logged in user found",userName);
-    //     });
-    // }
-    
     return res.render('home', //this will directly look up in the views folder 
     {
         title : "Codeial | Home",

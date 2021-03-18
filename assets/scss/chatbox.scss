@@ -1,0 +1,56 @@
+$border-color : black;
+#user-chat-box{
+    position: fixed;
+    bottom: 0px;
+    min-height: 300px;
+    border: 2px solid $border-color;
+    max-height: 300px;
+    right: 0px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    ul{
+        display: flex;
+        flex-direction: column;
+    }
+    li{
+        min-height: 40px;
+    }
+    .other-message{
+        border: 2px solid aliceblue;
+        list-style-type: none;
+        min-width: 200px;
+        background-color: hotpink;
+        margin-left: -40px;
+        display: inline-block;
+        max-width: 200px;
+        align-self: flex-start;
+    }
+    .self-message{
+        border: 2px solid aliceblue;
+        list-style-type: none;
+        text-align: right;
+        display: inline-block;
+        background-color: lightcoral;
+        max-width: 200px;
+        align-self: flex-end;
+        min-width: 200px;
+    }
+    #message-input-container{
+        display: inline-block;
+        position: fixed;
+        bottom: 2px;
+        input[type=text]{
+            width: 230px;
+            padding: 10px;
+            border: 2px solid #e91e63;
+        }
+        input[type=submit]{
+            padding: 9px 11px;
+            background-color: #e91e63;
+            color: blanchedalmond;
+        }
+    }
+    
+}

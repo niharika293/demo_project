@@ -52,7 +52,6 @@ module.exports.profile =async function (req, res) {
        let from_id = req.user._id;
        let to_id = req.params.id;
        let are_friends = false;
-      // console.log("checking from users_controller :: are_friends",are_friends);
        Friendship.findOne({
            $or: [{ from_user: from_id, to_user: to_id },
            { from_user: to_id, to_user: from_id }]

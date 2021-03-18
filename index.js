@@ -15,9 +15,19 @@ const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
+// Set-up the chat server to be used with socket.io
+// Express initializes app to be a function handler that you can supply to an HTTP server.
+const chatServer = require('http').Server(app); 
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+// chatServer.listen(5000, () =>{
+//     console.log("******Chat server is up & running on port 5000******");
+// });
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
+
 // Put Sass Middleware settings before the server starts, so that all the sass files get pre-compiled
 // before they are accessed.
-
 app.use(sassMiddleware({
     src:'./assets/scss',
     dest:'./assets/css',
@@ -25,6 +35,21 @@ app.use(sassMiddleware({
     outputStyle:'extended', //output : multiple lines
     prefix:'/css' //t will tell the sass middleware that any request file will always be prefixed with <prefix> and this prefix should be ignored.
 }));
+
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods','GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+});
+
+
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:8000"); // update to match the domain you will make the request from
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
 
 // reading through post requests
 app.use(express.urlencoded());
