@@ -23,27 +23,12 @@ const del = require('del'); //deletes files & diectories using Globs.
 // merge : true => if the name already exists, then it'll get merge within that, 
 gulp.task('css',function(done){
     console.log('Minifying CSS...');
-    gulp.src('./assets/scss/**/*.scss')
+    gulp.src('./assets/scss/*.scss')
     .pipe(sass())
     .pipe(cssnano())
-    .pipe(gulp.dest('./assets/css')); //Put them in a folder now, for production mode, the destination will be different, we'll make a folder -> public &  put CSS/JS etc. files there.
+    .pipe(gulp.dest('./assets.css')); //Put them in a folder now, for production mode, the destination will be different, we'll make a folder -> public &  put CSS/JS etc. files there.
     
     gulp.src('./assets/**/*.css') // revisit files
-    .pipe(rev())
-    .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd : 'public',
-        merge : true,
-    }))
-    .pipe(gulp.dest('./public/assets'));
-    done();
-});
-
-// *TASK : Minifying the JS files.*
-gulp.task('js',function(done){
-    console.log('Minifying JS ... ');
-    gulp.src('./assets/**/*.js')
-    .pipe(uglify())
     .pipe(rev())
     .pipe(gulp.dest('./public/assets'))
     .pipe(rev.manifest({
@@ -53,6 +38,23 @@ gulp.task('js',function(done){
     .pipe(gulp.dest('./public/assets'));
     done();
 });
+//but css ki saaari files ke name secret key me nhi hai
+// call on 8860901248 , whatsapp calll lagegi netwrork issue, i'll explain
+//ok tum save krk
+// *TASK : Minifying the JS files.*
+gulp.task('js',function(done){
+    console.log('Minifying JS ... ');
+    gulp.src('./assets/js/*.js')
+    .pipe(uglify())
+    .pipe(rev())
+    .pipe(gulp.dest('./public/assets/js'))
+    .pipe(rev.manifest({
+        cwd : 'public',
+        merge : true
+    }))
+    .pipe(gulp.dest('./public/assets'));
+    done()
+});
 
 // *TASK : Minifying the Images.*
 
@@ -61,6 +63,11 @@ gulp.task('images',function(done){
     gulp.src('./assets/**/*.+(png|jpg|gif|svg|jpeg)')
     .pipe(imagemin())
     .pipe(rev())
+    .pipe(gulp.dest('./public/assets'))
+    .pipe(rev.manifest({
+        cwd : 'public',
+        merge : true
+    }))
     .pipe(gulp.dest('./public/assets'));
     done();
 });
@@ -74,7 +81,7 @@ gulp.task('clean:assets', function(done){
 });
 
 // Series : Combines task functions and/or composed operations into larger operations that will be executed one after another, in sequential order.
-gulp.task('build',gulp.series('clean:assets','css','js','images',function(done){
+gulp.task('build',gulp.series('clean:assets','css','js','images'),function(done){
     console.log("Building Assets...");
     done();
-}));
+});

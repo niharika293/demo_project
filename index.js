@@ -4,6 +4,7 @@ const env = require('./config/environment');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();//Creates an Express application. The express() function is a top-level function exported by the express module. 
+require('./config/view-helpers')(app);
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts'); //acquire layouts
 const db = require('./config/mongoose'); //acquire the defined mongoose connection
