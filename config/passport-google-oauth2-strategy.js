@@ -2,6 +2,7 @@ const passport = require('passport');
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const crypto = require('crypto'); // For random passwords
 const User = require('../models/User');
+const env = require('../config/environment');
 
 // Tell Passport to use google-oAuth2 Strategy.
 // accessToken : After authentication, Google generates an access token & gives it back to us.
@@ -9,9 +10,9 @@ const User = require('../models/User');
 // profile : contains the user's info.
 // done : takes the callback from the ().
 passport.use(new googleStrategy({
-    clientID :"374632310222-6d8952rjvu8cni5f25aovh3c0624ce30.apps.googleusercontent.com",
-    clientSecret : "CNwTrJJYdo_cyoYZkfEOPzuS",
-    callbackURL : "http://localhost:8000/user/auth/google/callback"
+    clientID : env.google_client_ID,
+    clientSecret : env.google_client_Secret,
+    callbackURL : env.google_call_back_URL
 },function(accessToken,refreshToken,profile,done){
     // Find the user with the email in the DB.
     console.log("printing for profile email",profile.emails);

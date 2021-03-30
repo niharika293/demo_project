@@ -1,0 +1,1 @@
+console.log("user profile script loaded");var input=document.querySelector("#file-input");console.log(input),input.onchange=function(){console.log("Inside preview");var e=this.files[0],n=new FileReader;n.readAsDataURL(e),n.onload=function(){var e=n.result;document.querySelector("#preview").setAttribute("src",e)}},input.addEventListener("change",preview);

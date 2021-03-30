@@ -1,6 +1,7 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
 const Friendship = require('../models/Friendship');
+const Chat = require('../models/Chat');
 // Controllers are the actions/group of actions taken for the routes.
 // module.exports.home = function(req,res){
     // return res.end('<h1>Express is up for codeial! </h1>');
@@ -96,3 +97,9 @@ module.exports.home = async function(req,res){
         return;
     }
 };
+
+// module.exports.add = function(req,res){
+//     console.log(req.body);
+//     Chat.create({from_user : req.user._id, chat})
+//     return res.redirect('back');
+// }

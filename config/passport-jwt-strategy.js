@@ -3,6 +3,7 @@ const JWTStrategy = require('passport-jwt').Strategy;
 // this module will help us to extract the JWT from the headers.
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const User = require('../models/User');
+const env = require('../config/environment');
 // We also need to have some options for encryption, decryption => Keys.
 // use of options : to control how the token is extracted from the request or verified.
 // jwtFromRequest (REQUIRED) Function that accepts a request as the only parameter and returns either the JWT as a string or null.
@@ -10,7 +11,7 @@ const User = require('../models/User');
 // secretOrKey : decryption happens here
 let opts = {
     jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey : 'codeial'
+    secretOrKey : env.jwt_secret
 }
 // Tell the passport to use JWTStrategy.
 // This () will be used to read the data from the JWT Payload.

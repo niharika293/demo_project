@@ -1,21 +1,12 @@
 const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const path = require('path');
-
+const env = require('../config/environment');
 
 // transporter : defines the configuration using which emails will be sent. 
 // port = 587, since we'll be using TLS(highest form of security)
 // secure : false , as we're not using two-factor-auhentication 
-let transporter = nodemailer.createTransport({
-    service : "gmail",
-    host : 'smtp.gmail.com',
-    port : 587,
-    secure : false,
-    auth : {
-        user : 'youremail@gmail.com', 
-        pass: 'yourpassword'
-    }
-});
+let transporter = nodemailer.createTransport(env.smtp);
 // to use template engines.
 // using arrow(), as we don't want "this" to be assigned.
 // relativePath : from where the email is to be sent.
