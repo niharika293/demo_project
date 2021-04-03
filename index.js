@@ -55,7 +55,7 @@ if(env.name == 'development'){
 // });
 
 // reading through post requests
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended : false}));
 
 app.use(logger(env.morgan.mode,env.morgan.options));
 

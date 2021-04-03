@@ -1,12 +1,12 @@
-<form action="/user/create" method="post">
+<form action="/user/create" method="post" id="form_sign_up">
     <input type="text" name="name" id="inp_name" placeholder="Enter your name" required>
     <input type="text" name="age" id="inp_age" placeholder="How old are you?" required>
     <input type="text" name="phone" id="inp_phone" placeholder="Enter your Phone" required>
     <input type="email" name="email" id="inp_email" placeholder="Enter your email address" required>
     <input type="password" name="password" id="inp_pass" placeholder="Choose a password" required>
     <input type="password" name="confim_password" id="inp_cf_pass" placeholder="Choose a password" required>
-    <button type="submit">Sign up!!</button>
+    <button type="submit" id="btn_sign_up">Sign up!!</button>
+    <button type="submit" id = "btn_google_sign_up">
+        <a class = "link_google" href="/user/auth/google">Google Sign-In / Sign-Up </a>
+    </button>
 </form>
-<p>
-    <a class = "link_google" href="/user/auth/google">Google Sign-In / Sign-Up </a>
-</p>

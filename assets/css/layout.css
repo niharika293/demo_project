@@ -34,6 +34,29 @@ html {
         border-left: 1px solid #212121;
         height: 100%;
         margin-left: 10px; }
+      html body #layout-main #form_sign_up {
+        display: flex;
+        width: 400px;
+        flex-direction: column;
+        align-content: center;
+        position: absolute;
+        top: 150px;
+        left: 350px; }
+        html body #layout-main #form_sign_up input {
+          padding: 10px;
+          margin-bottom: 6px; }
+        html body #layout-main #form_sign_up .link_google {
+          font-size: large; }
+        html body #layout-main #form_sign_up #btn_sign_up, html body #layout-main #form_sign_up #btn_google_sign_up {
+          color: #ffeb3b;
+          background-color: #e91e63;
+          font-size: large;
+          padding: 10px;
+          cursor: pointer;
+          border-radius: 20px;
+          display: inline !important;
+          border: 2px dotted aliceblue;
+          margin-top: 6px; }
       html body #layout-main h1 {
         text-align: center;
         font-family: cursive;
