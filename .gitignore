@@ -4,3 +4,5 @@ node_modules/
 public/
 #Ignore production logs
 production_logs/
+#Ignore environment variables file.
+env.ps1
