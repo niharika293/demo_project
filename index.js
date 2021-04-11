@@ -57,15 +57,21 @@ if(env.name == 'development'){
 // reading through post requests
 app.use(express.urlencoded({extended : false}));
 
-app.use(logger(env.morgan.mode,env.morgan.options));
 
 // tell the app to use cookie parser
 app.use(cookieParser());
 
 // tell the app to use static files in assets folder.
+
 app.use(express.static(env.asset_path));
+// app.use(express.static(__dirname + '/public/assets/images'));
+// app.use(express.static(__dirname + '/public/assets/js'));
+
 // make the upload path available to the browser
 app.use('/uploads',express.static(__dirname+'/uploads'));
+// app.use('/images',express.static(__dirname+'/public/assets/images'));
+
+app.use(logger(env.morgan.mode,env.morgan.options));
 
 
 // tell the app to  use the layouts before the views to render pages accordingly as they're the wrappers for every view. 

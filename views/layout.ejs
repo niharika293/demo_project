@@ -1,24 +1,20 @@
 <html>
     <head>
-        <!-- //u havent done minification? -->
-        <!-- kari hai -->
         <title><%=title%></title>
-        <base href="/">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
-        
-        <link rel="stylesheet" href="<%= assetPath('./css/layout.css') %>">
+        <link rel="stylesheet" href="<%= assetPath('css/layout.css') %>" type="text/css">
         <!-- this path will be read through the assets folder, 
         since we've already mentioned in the index.js app file 
         to look for the static files in assets folder. -->
-        <link rel="stylesheet" href="<%= assetPath('./css/header.css') %>">
-        <link rel="stylesheet" href="<%= assetPath('./css/footer.css') %>">
-        <link rel="stylesheet" href="<%= assetPath('./css/chatbox.css') %>">
-        <%-style%>
+        <link rel="stylesheet" href="<%= assetPath('css/header.css') %>">
+        <link rel="stylesheet" href="<%= assetPath('css/footer.css') %>">
+        <link rel="stylesheet" href="<%= assetPath('css/chatbox.css') %>">
         <!-- this way, the stylesheet will be read through the link tag provided in the
             target view or html file :) -->
+        <%- style %>
         <!-- Good practice, to place the user defined individual styles after the layout's styles,
             so that they can override the existing styles from layout. -->
     </head>
@@ -58,6 +54,7 @@
         </script>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js" integrity="sha512-2RDFHqfLZW8IhPRvQYmK9bTLfj/hddxGXQAred2wNZGkrKQkLGj8RCkXfRJPHlDerdHHIzTFaahq4s/P4V6Qig==" crossorigin="anonymous"></script>
+    
     <script src="<%= assetPath('js/chat_engine.js') %>"></script>
     <% if(locals.user){%>
         <script>

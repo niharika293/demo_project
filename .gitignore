@@ -2,3 +2,5 @@
 node_modules/ 
 #Ignore the public directory.
 public/
+#Ignore production logs
+production_logs/
