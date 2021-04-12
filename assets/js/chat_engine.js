@@ -16,7 +16,8 @@ class ChatEngine{
         this.userEmail = userEmail;
         // *io* is given to us  by socket.io cdn when it gets loaded
         // io.connect fires the event io.connection to recieve the connection.
-        this.socket = io.connect('http://localhost:5000'); //(*1*) [emits a connection request].
+        // To use the socket with localhost, change below IP.
+        this.socket = io.connect('http://34.207.57.200:5000'); //(*1*) [emits a connection request].
         // if the user-email exist, only then call the connection-handler.
         if(this.userEmail){
             this.connectionHandler();
