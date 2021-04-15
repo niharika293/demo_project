@@ -1,6 +1,9 @@
 //Acquiring Express
 const express = require('express');
 const env = require('./config/environment');
+const cors = require('cors');
+// Cors = Cross origin resource sharing, should be enabled when some other app is trying to communicate/access data from our app.
+// for example : chat socket port 5000 / our angular app port (4200) when communicates with our app's port 8000   
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();//Creates an Express application. The express() function is a top-level function exported by the express module. 
@@ -33,6 +36,8 @@ chatServer.listen(5000, () =>{
 //         }
 //     });
 // });
+// tell the app to use CORS.
+app.use(cors());
 
 // Put Sass Middleware settings before the server starts, so that all the sass files get pre-compiled
 // before they are accessed.
